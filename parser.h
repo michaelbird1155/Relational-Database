@@ -61,7 +61,7 @@ public:
 
 	parser();
 	~parser();
-    void parse(vector<Token> tokenlist, char* filename);
+    void parse(vector<Token> tokenlist);
     void get_token_type();
     void get_token_value();
     void get_token_line();

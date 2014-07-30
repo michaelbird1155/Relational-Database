@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <set>
+#include <sstream>
 #include <ctype.h>
 #include "Tuple.h"
 #include "Scheme.h"
@@ -34,10 +35,9 @@ public:
     
     Relation select(int pos, string value);
     Relation select(int pos1, int pos2);
-    void project(vector<string> name, vector<int> pos);
+    string project(vector<string> name, vector<int> pos);
     void rename();
-    
-    string name;
+
    
     
 private:

@@ -17,7 +17,7 @@ parser::parser() {}
 
 parser::~parser() {}
 
-void parser::parse(vector<Token> tokenlist_, char* filename) {
+void parser::parse(vector<Token> tokenlist_) {
     
     tokenlist = tokenlist_;
     
@@ -25,8 +25,6 @@ void parser::parse(vector<Token> tokenlist_, char* filename) {
     //current_token_value = tokenlist[index].get_token_value();
     //current_token_type = tokenlist[index].get_token_type();
     
-    ofstream outputFile;
-    outputFile.open(filename);
     
     try {
         
@@ -51,14 +49,14 @@ void parser::parse(vector<Token> tokenlist_, char* filename) {
         }
         //cout << D.toString() << endl;
         
-        outputFile << D.toString();
+        //outputFile << D.toString();
 
     }
     catch (string e){
-        outputFile << "Failure!" <<endl << "  " << e << endl;
+        //outputFile << "Failure!" <<endl << "  " << e << endl;
         cout << "Failure!" <<endl << "  " << e << endl;
     }
-    outputFile.close();
+    //outputFile.close();
 }
 
 DataLog parser::get_datalog_object() {

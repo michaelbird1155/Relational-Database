@@ -12,6 +12,7 @@
 #include <iostream>
 #include <sstream>
 #include <set>
+#include <fstream>
 #include <ctype.h>
 #include "DatalogProgram.h"
 #include "Database.h"
@@ -30,8 +31,9 @@ public:
     vector<Tuple> add_facts(string id);
     void add_relation();
     void tuple_clear();
-    void eval_query();
+    void eval_query(char* filename);
     bool is_string(string param);
+    string yes_no(set<Tuple> set);
     
 private:
     

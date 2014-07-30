@@ -22,11 +22,12 @@ int main (int argc, char *argv[])
     vector<Token> tokens = LA.lex(argv[1]);
 
     parser PA;
-    PA.parse(tokens,argv[2]);
+    PA.parse(tokens);
     
     
     Interpreter INT;
     INT.interpret(PA.get_datalog_object());
+    INT.eval_query(argv[2]);
     
     return 0;
 }

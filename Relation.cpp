@@ -45,15 +45,20 @@ Relation Relation::select(int pos1, int pos2) {
     return  R;
     
 }
-void Relation::project(vector<string> name, vector<int> pos) {
-    for (auto tuple : tuples ) {
-        for (auto spot : pos) {
-            for(auto row: name[spot]) {
-                cout << "  "<<name[spot] << "=" << tuple[spot];
-            }
-         
-        } cout << endl;
+string Relation::project(vector<string> name, vector<int> pos) {
+    
+    stringstream ss;
+    for (auto tuple : tuples) {
+        for (unsigned int i = 0; i < name.size(); i++) {
+            
+           if(i == 0)
+                ss << "  "<<name[i] << "=" << tuple[pos[i]];
+           else
+                ss << ", "<<name[i] << "=" << tuple[pos[i]];
+        }
+        ss << "\n";
     }
+    return ss.str();
 }
 
 set<Tuple> Relation::get_tuples() {

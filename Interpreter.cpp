@@ -18,8 +18,6 @@ void Interpreter::interpret(DataLog obj_) {
     add_relation();
     
     Relations_ = DAT.get_relations();
-    
-    eval_query();
 }
 
 void Interpreter::add_relation() { // add a relation
@@ -77,31 +75,34 @@ void Interpreter::tuple_clear() {
 
 }
 
-void Interpreter::eval_query() {
-        
+void Interpreter::eval_query(char* filename) {
+    
+    ofstream outputFile;
+    outputFile.open(filename);
+
+    
     for (auto query: queries_) {
         Relation RelTemp;
         RelTemp = Relations_[query.get_id()];
         
         stringstream ss;
-        
-        RelTemp.name = query.get_id();
-        
-        ss << RelTemp.name << "(";
+        ss << query.get_id() << "(";
         
         vector<string> parameters = query.get_parameters();
-        int count = 0;
-        for (int j=0; j < parameters.size(); j++) {
+
+        for (unsigned int j=0; j < parameters.size(); j++) {
             
             ss << parameters[j];
             
             if (is_string(parameters[j]) == true) {
              
-                RelTemp = RelTemp.select(count,parameters[j]);
+                RelTemp = RelTemp.select(j,parameters[j]);
                 
             }
             else {
-                for (int k = (j+1); k < parameters.size(); k++) {
+                
+                for  (unsigned int k = (j+1); k < parameters.size(); k++) {
+                    
                     if (parameters[k] == parameters[j]) {
                         RelTemp = RelTemp.select(k, j);
                     }
@@ -109,22 +110,33 @@ void Interpreter::eval_query() {
                 variable_pos.push_back(j);
                 variable_name.push_back(parameters[j]);
             }
-            count++;
-            if(count == 1)
-                ss << ",";
+            if (j < (parameters.size()-1)) {
+                 ss << ",";
+            }
         }
         ss << ")?";
         set<Tuple> tupleset = RelTemp.get_tuples();
-        if(tupleset.size() >= 1)
-            ss << " YES(" << tupleset.size() <<")";
-        else
-            ss << " No";
-        cout << ss.str() << endl;
+        ss << yes_no(tupleset);
         if(variable_pos.size() > 0)
-            RelTemp.project(variable_name, variable_pos);
+            ss << RelTemp.project(variable_name, variable_pos);
+        
+        outputFile << ss.str();
+        
+        //clear vector tables
         variable_pos.clear();
         variable_name.clear();
     }
+    outputFile.close();
+}
+
+string Interpreter::yes_no(set<Tuple> set) {
+    stringstream ss;
+    if(set.size() >= 1)
+        ss << " YES(" << set.size() <<")\n";
+    else
+        ss << " No\n";
+
+    return ss.str();
 }
 
 bool Interpreter::is_string(string param) {

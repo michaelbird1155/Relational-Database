@@ -1,17 +1,2 @@
-Success!
-Schemes(1):
-  SK(AB)
-Facts(3):
-  SK('a''c')
-  SK('b''c')
-  SK('b''b')
-Rules(0):
-Queries(4):
-  SK(A'c')
-  SK('b''c')
-  SK('c''c')
-  SK(AB)
-Domain(3):
-  'a'
-  'b'
-  'c'
+bob('a',B)? YES(1)
+  B='b'

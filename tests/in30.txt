@@ -1,13 +1,8 @@
 Schemes:
-    SK(A,B)
+    SK(A,B,C)
 Facts:
-    SK('a','c').
-    SK('b','c').
-    SK('b','b').
+    SK('b','b','b').
 Rules:
 
 Queries:
-    SK(A,'c')?
-    SK('b','c')?
-    SK('c','c')?
-    SK(A,B)?
+    SK(A,A,A)?

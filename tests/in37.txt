@@ -11,4 +11,3 @@ Rules:
 Queries:
   bob('a',B)?
 
-
